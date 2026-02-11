@@ -40,9 +40,26 @@ body {
   background: var(--white);
   line-height: 1.7;
   overflow-x: hidden;
+  opacity: 0;
+  animation: fadeInBody 0.6s ease forwards;
 }
 
-a { text-decoration: none; color: inherit; transition: var(--transition); }
+@keyframes fadeInBody {
+  to { opacity: 1; }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
 ul { list-style: none; }
 img { max-width: 100%; display: block; }
 
@@ -138,6 +155,10 @@ img { max-width: 100%; display: block; }
 
 .btn-primary:hover .btn-arrow {
   transform: translateX(4px);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .btn-arrow {
@@ -569,6 +590,11 @@ img { max-width: 100%; display: block; }
 .sobre-badge-item:hover .badge-icon {
   background: var(--primary);
   color: var(--dark);
+  transform: scale(1.08);
+}
+
+.badge-icon {
+  transition: var(--transition);
 }
 
 .badge-icon {
@@ -581,7 +607,6 @@ img { max-width: 100%; display: block; }
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
-  transition: var(--transition);
 }
 
 .sobre-badge-item strong {
@@ -642,6 +667,10 @@ img { max-width: 100%; display: block; }
 
 .servico-card:hover::before {
   background: linear-gradient(90deg, var(--primary), #34D399);
+}
+
+.servico-card:active {
+  transform: translateY(-3px);
 }
 
 .servico-card-badge {
@@ -762,6 +791,10 @@ img { max-width: 100%; display: block; }
   transform: translateY(-3px);
 }
 
+.depoimento-card:active {
+  transform: translateY(-1px);
+}
+
 .depoimento-featured {
   grid-row: span 2;
   background: var(--dark);
@@ -857,6 +890,81 @@ img { max-width: 100%; display: block; }
 }
 
 .depoimento-featured .depoimento-author span { color: rgba(255,255,255,0.4); }
+
+/* ===== FAQ ===== */
+.faq { background: var(--surface); }
+
+.faq-list {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.faq-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.faq-item:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 28px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark);
+  transition: var(--transition);
+}
+
+.faq-question:hover {
+  color: var(--primary-dark);
+}
+
+.faq-question i {
+  font-size: 0.75rem;
+  color: var(--primary);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.faq-item.active .faq-question i {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item.active .faq-answer {
+  max-height: 500px;
+  padding: 0 28px 24px 28px;
+}
+
+.faq-answer p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin: 0;
+}
 
 /* ===== CONTATO (DARK) ===== */
 .contato {
@@ -998,7 +1106,6 @@ img { max-width: 100%; display: block; }
   font-family: var(--font-body);
   color: var(--white);
   background: var(--dark-3);
-  transition: var(--transition);
   outline: none;
 }
 
@@ -1012,6 +1119,19 @@ img { max-width: 100%; display: block; }
 .form-group textarea:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(0, 220, 130, 0.1);
+  transform: translateY(-1px);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  transition: var(--transition);
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+  border-color: rgba(0, 220, 130, 0.3);
 }
 
 .form-group textarea { resize: vertical; }
@@ -1101,6 +1221,10 @@ img { max-width: 100%; display: block; }
   transform: scale(1.08) translateY(-2px);
   box-shadow: 0 6px 28px rgba(37, 211, 102, 0.5);
   animation: none;
+}
+
+.whatsapp-float:active {
+  transform: scale(1.02) translateY(0);
 }
 
 @keyframes waPulse {
