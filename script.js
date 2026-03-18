@@ -129,18 +129,42 @@ form.addEventListener('submit', (e) => {
   btn.disabled = true;
   btn.style.opacity = '0.7';
 
-  setTimeout(() => {
-    btn.innerHTML = '<i class="fas fa-check"></i> Orçamento Enviado!';
-    btn.style.background = '#059669';
-    btn.style.borderColor = '#059669';
-    btn.style.opacity = '1';
+  const formData = new FormData(form);
 
-    setTimeout(() => {
-      btn.innerHTML = originalText;
-      btn.style.background = '';
-      btn.style.borderColor = '';
-      btn.disabled = false;
-      form.reset();
-    }, 3000);
-  }, 1500);
+  fetch(form.action, {
+    method: 'POST',
+    body: formData,
+    headers: { 'Accept': 'application/json' }
+  })
+    .then((response) => {
+      if (response.ok) {
+        btn.innerHTML = '<i class="fas fa-check"></i> Orçamento Enviado!';
+        btn.style.background = '#059669';
+        btn.style.borderColor = '#059669';
+        btn.style.opacity = '1';
+        form.reset();
+
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.background = '';
+          btn.style.borderColor = '';
+          btn.disabled = false;
+        }, 3000);
+      } else {
+        throw new Error('Erro ao enviar');
+      }
+    })
+    .catch(() => {
+      btn.innerHTML = '<i class="fas fa-times"></i> Erro ao enviar';
+      btn.style.background = '#dc2626';
+      btn.style.borderColor = '#dc2626';
+      btn.style.opacity = '1';
+
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.style.background = '';
+        btn.style.borderColor = '';
+        btn.disabled = false;
+      }, 3000);
+    });
 });
